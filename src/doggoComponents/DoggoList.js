@@ -3,24 +3,29 @@ import {Link} from 'react-router-dom';
 import logo from '../icons/dog.svg';
 import axios from 'axios';
 
+const urlAPI = 'https://dogfair.herokuapp.com/api/license_registrations'
+
 const DoggoList = props => {
   const [doggo, setDoggo] = useState ({data: []});
   const [isLoading, setIsLoading] = useState (true);
 
-  useEffect (() => {
-    axios
-      .get ('https://dogfair.herokuapp.com/api/license_registrations')
-      .then (response => {
-        console.log (response);
-        console.log (response.data);
-        setDoggo (response.data);
-        setIsLoading (false);
-      })
-      .catch (error => {
-        console.log (error);
-      });
-  }, []);
+  const fetchData = async () => {
+    await axios
+    .get(urlAPI)
+    .then(response => {
+      console.log()
+      setDoggo(response.data);
+      setIsLoading(false)
+    })  
+    .catch(error => {
+      console.log(error)
+    })  
+  };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+  
   return (
     <Fragment>
       {isLoading
