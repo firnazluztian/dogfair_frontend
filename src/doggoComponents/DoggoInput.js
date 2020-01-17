@@ -34,8 +34,8 @@ const DoggoInput = props => {
       })
       .catch (error => {
         console.log (error);
-        alert (error);
-      });
+        if (error.response.status === 422) {alert ('that doggo id has already been taken');}
+      })
   };
 
   const onSubmit = event => {

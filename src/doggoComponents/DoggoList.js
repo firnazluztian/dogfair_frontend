@@ -29,13 +29,13 @@ const DoggoList = props => {
       {isLoading
         ? 'Loading the data ... '
         : doggo.data.map (doggo => (
-            <div className="doggo-list-box">
+            <div className="doggo-list-box" key={doggo.id}>
               <div className="columns">
                 <div className="column">
                   <img src={logo} alt="logo" width="112" height="28" />
                 </div>
 
-                <div className="column is-8" key={doggo.id}>
+                <div className="column is-8">
                   <p><strong>{doggo.name}</strong></p>
                   <p>Age: {doggo.age}</p>
                   <p>Description: {doggo.description}</p>

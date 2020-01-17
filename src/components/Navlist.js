@@ -5,10 +5,9 @@ function Navlist (props) {
   return (
     <div>
       <Link to={props.linkTo}>
-        {/* eslint-disable-next-line */}
-        <a className="navbar-item">
+        <p className="navbar-item">
           {props.linkName}
-        </a>
+        </p>
       </Link>
     </div>
   );
