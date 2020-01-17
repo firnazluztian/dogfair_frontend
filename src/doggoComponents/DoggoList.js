@@ -22,7 +22,7 @@ const DoggoList = props => {
 
   useEffect(() => {
     getData();
-  }, []);
+  });
 
   return (
     <Fragment>
@@ -50,7 +50,7 @@ const DoggoList = props => {
                     <button className="button">Edit</button>
                   </Link>
                   <Link to="/doggo-registration/delete">
-                    <button className="button">Delete</button>
+                    <button className="button" title={'id:' + doggo.id}>Delete</button>
                   </Link>
                 </div>
               </div>
