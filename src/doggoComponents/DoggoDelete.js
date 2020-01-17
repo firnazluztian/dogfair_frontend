@@ -3,15 +3,7 @@ import {Link,useHistory} from 'react-router-dom';
 import axios from 'axios';
 
 const DoggoDelete = props => {
-  const initialState = {
-    id: null,
-    name: '',
-    age: null,
-    description: '',
-    doggo_id: '',
-  };
-
-  const [doggo, setDoggo] = useState (initialState);
+  const [doggo, setDoggo] = useState ({});
   const history = useHistory()
 
   const handleChange = event => {
