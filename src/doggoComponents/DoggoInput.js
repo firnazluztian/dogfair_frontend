@@ -6,7 +6,7 @@ const DoggoInput = props => {
   const initialState = {
     id: null,
     name: '',
-    age: '',
+    age: null,
     description: '',
     doggo_id: '',
   };
@@ -17,11 +17,17 @@ const DoggoInput = props => {
     setDoggo ({...doggo, [event.target.name]: event.target.value});
   };
 
-  const onSubmit = event => {
-    console.log (event);
-    //event.preventDefault (); // stop browser from reloading
-    axios
-      .post ('https://dogfair.herokuapp.com/api/license_registrations', doggo)
+  const postData = async () => {
+    await axios
+      .post ('https://dogfair.herokuapp.com/api/license_registrations', {
+        registration: {
+          name: doggo.name,
+          age: doggo.age,
+          description: doggo.description,
+          doggo_id: doggo.doggo_id
+        }
+      }
+      )
       .then (response => {
         console.log (response);
         console.log (response.data);
@@ -31,6 +37,12 @@ const DoggoInput = props => {
         console.log (error);
         alert (error);
       });
+  }
+
+  const onSubmit = event => {
+    console.log (event);
+    //event.preventDefault (); // stop browser from reloading
+    postData();
   };
 
   return (
