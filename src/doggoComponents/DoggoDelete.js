@@ -1,38 +1,41 @@
-import React, {useState, Fragment} from 'react';
-import {Link} from 'react-router-dom';
+import React, {useState} from 'react';
+import {Link,useHistory} from 'react-router-dom';
 import axios from 'axios';
 
 const DoggoDelete = props => {
   const initialState = {
     id: null,
     name: '',
-    age: '',
+    age: null,
     description: '',
     doggo_id: '',
   };
 
   const [doggo, setDoggo] = useState (initialState);
+  const history = useHistory()
 
   const handleChange = event => {
-    setDoggo ({...doggo, [event.target.id]: event.target.value});
+    setDoggo ({...doggo, [event.target.name]: event.target.value});
   };
 
-  const handleSubmit = event => {
-    event.preventDefault (); // stop browser from reloading the page
-    axios
-      .delete (
-        `https://dogfair.herokuapp.com/api/license_registrations/${doggo.id}`,
-        doggo
-      )
+  const deleteData = async () => {
+    await axios
+      .delete (props.urlApi + doggo.id, doggo)
       .then (response => {
         console.log (response);
         console.log (response.data);
         alert ("Id " + doggo.id + " is sucessfully deleted");
+        history.push('/doggo-registration')
       })
       .catch (error => {
         console.log (error);
         alert (error);
       });
+  }
+
+  const handleSubmit = event => {
+    event.preventDefault (); 
+    deleteData();
   };
 
   return (

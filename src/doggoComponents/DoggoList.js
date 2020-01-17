@@ -1,17 +1,15 @@
 import React, {useState, useEffect, Fragment} from 'react';
 import {Link} from 'react-router-dom';
-import logo from '../icons/dog.svg';
 import axios from 'axios';
-
-const urlAPI = 'https://dogfair.herokuapp.com/api/license_registrations'
+import logo from '../icons/dog.svg';
 
 const DoggoList = props => {
   const [doggo, setDoggo] = useState ({data: []});
   const [isLoading, setIsLoading] = useState (true);
 
-  const fetchData = async () => {
+  const getData = async () => {
     await axios
-    .get(urlAPI)
+    .get(props.urlApi)
     .then(response => {
       console.log()
       setDoggo(response.data);
@@ -23,9 +21,9 @@ const DoggoList = props => {
   };
 
   useEffect(() => {
-    fetchData();
+    getData();
   }, []);
-  
+
   return (
     <Fragment>
       {isLoading

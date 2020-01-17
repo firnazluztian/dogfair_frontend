@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Switch, Route} from 'react-router-dom';
 import DoggoList from '../doggoComponents/DoggoList';
 import DoggoInput from '../doggoComponents/DoggoInput';
 import DoggoDelete from '../doggoComponents/DoggoDelete';
 import DoggoEdit from '../doggoComponents/DoggoEdit';
+
+const API= 'https://dogfair.herokuapp.com/api/license_registrations/'
 
 const DoggoRegistrationPage = () => {
   return (
@@ -12,18 +14,18 @@ const DoggoRegistrationPage = () => {
         <div className="column">
           <Switch>
             <Route exact path="/doggo-registration/">
-              <DoggoInput />
+              <DoggoInput urlApi={API} />
             </Route>
             <Route path="/doggo-registration/delete">
-              <DoggoDelete />
+              <DoggoDelete urlApi={API} />
             </Route>
             <Route path="/doggo-registration/edit">
-              <DoggoEdit />
+              <DoggoEdit urlApi={API} />
             </Route>
           </Switch>
         </div>
         <div className="column">
-          <DoggoList />
+          <DoggoList urlApi={API} />
         </div>
       </div>
     </div>

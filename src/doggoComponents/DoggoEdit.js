@@ -1,38 +1,44 @@
 import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import {useForm} from 'react-hook-form';
 import axios from 'axios';
 
+// incomplete
 const DoggoEdit = props => {
   const initialState = {
     id: null,
     name: '',
-    age: '',
+    age: null,
     description: '',
     doggo_id: '',
   };
   const {handleSubmit, register, errors} = useForm ();
   const [doggo, setDoggo] = useState (initialState);
+  const history = useHistory ();
 
   const handleInputChange = event => {
     setDoggo ({...doggo, [event.target.name]: event.target.value});
   };
 
-  const onSubmit = event => {
-    console.log (event);
-    axios
-      .patch (
-        `https://dogfair.herokuapp.com/api/license_registrations/${doggo.id}`,
-        doggo
-      )
+  const editData = async () => {
+    await axios
+      .patch (props.urlApi + doggo.id, doggo)
       .then (response => {
         console.log (response);
         console.log (response.data);
+        alert ('Id ' + doggo.id + ' is sucessfully edited');
+        history.push ('/doggo-registration');
       })
       .catch (error => {
         console.log (error);
         alert (error);
       });
+  }
+
+  const onSubmit = event => {
+    console.log (event);
+    event.preventDefault ();
+    editData(); 
   };
 
   return (

@@ -6,31 +6,31 @@ const DoggoInput = props => {
   const initialState = {
     id: null,
     name: '',
-    age: null,
+    age: '',
     description: '',
     doggo_id: '',
   };
+
   const {handleSubmit, register, errors} = useForm ();
   const [doggo, setDoggo] = useState (initialState);
-
+  
   const handleInputChange = event => {
     setDoggo ({...doggo, [event.target.name]: event.target.value});
   };
 
   const postData = async () => {
     await axios
-      .post ('https://dogfair.herokuapp.com/api/license_registrations', {
+      .post (props.urlApi, {
         registration: {
           name: doggo.name,
           age: doggo.age,
           description: doggo.description,
           doggo_id: doggo.doggo_id
-        }
-      }
-      )
+        }})
       .then (response => {
         console.log (response);
         console.log (response.data);
+        setDoggo(initialState)
         alert ('succesfully registered');
       })
       .catch (error => {
@@ -41,7 +41,6 @@ const DoggoInput = props => {
 
   const onSubmit = event => {
     console.log (event);
-    //event.preventDefault (); // stop browser from reloading
     postData();
   };
 
